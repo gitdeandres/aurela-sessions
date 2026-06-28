@@ -1,0 +1,27 @@
+# Python bytecode
+__pycache__/
+*.py[oc]
+
+# Virtual environment
+.venv/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Django
+*.log
+db.sqlite3
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs
+.idea/
+.vscode/
+
+# OS artifacts
+.DS_Store
