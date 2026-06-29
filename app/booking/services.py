@@ -21,12 +21,12 @@ def book_session(
     Raises ConflictError if the therapist already has an overlapping session.
     Raises Therapist.DoesNotExist or Patient.DoesNotExist if either is not found.
     """
-    therapist = Therapist.objects.get(pk=therapist_id)
-    patient = Patient.objects.get(pk=patient_id)
-
-    new_end_time = start_time + timedelta(minutes=duration_minutes)
-
     with transaction.atomic():
+        therapist = Therapist.objects.get(pk=therapist_id)
+        patient = Patient.objects.get(pk=patient_id)
+
+        new_end_time = start_time + timedelta(minutes=duration_minutes)
+
         # Lock active sessions for this therapist to prevent race conditions.
         # select_for_update blocks concurrent transactions from reading the
         # same rows until this transaction completes.
