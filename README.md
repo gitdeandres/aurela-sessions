@@ -58,7 +58,7 @@ docker compose up
 Si quieres ejecutarlo manualmente:
 
 ```bash
-docker compose exec web djmanage seed
+docker compose exec web uvmanage seed
 ```
 
 El comando es idempotente — puedes ejecutarlo múltiples veces sin duplicar datos.
