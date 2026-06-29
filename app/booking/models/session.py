@@ -71,7 +71,7 @@ class Session(models.Model):
         choices=CancellationType.choices,
         null=True,
     )
-    cancellation_reason = models.TextField(null=True)
+    cancellation_reason = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -80,6 +80,7 @@ class Session(models.Model):
         ordering = ['start_time']
         indexes = [
             models.Index(fields=['therapist', 'start_time']),
+            models.Index(fields=['therapist', 'status']),
             models.Index(fields=['status']),
         ]
 

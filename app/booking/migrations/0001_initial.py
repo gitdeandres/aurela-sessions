@@ -46,14 +46,14 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(choices=[('pending', 'Pending'), ('confirmed', 'Confirmed'), ('completed', 'Completed'), ('cancelled', 'Cancelled'), ('no_show', 'No Show')], default='pending', max_length=20)),
                 ('cancelled_by', models.CharField(choices=[('patient', 'Patient'), ('therapist', 'Therapist'), ('system', 'System')], max_length=20, null=True)),
                 ('cancellation_type', models.CharField(choices=[('standard', 'Standard'), ('emergency', 'Emergency')], max_length=20, null=True)),
-                ('cancellation_reason', models.TextField(null=True)),
+                ('cancellation_reason', models.TextField(null=True, blank=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],
             options={
                 'db_table': 'session',
                 'ordering': ['start_time'],
-                'indexes': [models.Index(fields=['therapist', 'start_time'], name='session_therapi_ab757d_idx'), models.Index(fields=['status'], name='session_status_dd82f4_idx')],
+                'indexes': [models.Index(fields=['therapist', 'start_time'], name='session_therapi_ab757d_idx'), models.Index(fields=['status'], name='session_status_dd82f4_idx'), models.Index(fields=['therapist', 'status'], name='session_therapi_f1de48_idx')],
             },
         ),
     ]
