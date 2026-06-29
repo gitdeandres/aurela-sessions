@@ -9,7 +9,6 @@ def main():
     from config.settings.base import SETTINGS_MODULE
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', SETTINGS_MODULE)
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aurela.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
