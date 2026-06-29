@@ -45,6 +45,7 @@ class Migration(migrations.Migration):
                 ('duration_minutes', models.PositiveIntegerField(default=60)),
                 ('status', models.CharField(choices=[('pending', 'Pending'), ('confirmed', 'Confirmed'), ('completed', 'Completed'), ('cancelled', 'Cancelled'), ('no_show', 'No Show')], default='pending', max_length=20)),
                 ('cancelled_by', models.CharField(choices=[('patient', 'Patient'), ('therapist', 'Therapist'), ('system', 'System')], max_length=20, null=True)),
+                ('cancellation_type', models.CharField(choices=[('standard', 'Standard'), ('emergency', 'Emergency')], max_length=20, null=True)),
                 ('cancellation_reason', models.TextField(null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),

@@ -30,6 +30,19 @@ class CancelledBy(models.TextChoices):
     SYSTEM = 'system', 'System'  # reserved for future automated cancellations
 
 
+class CancellationType(models.TextChoices):
+    STANDARD = 'standard', 'Standard'
+    EMERGENCY = 'emergency', 'Emergency'  # crisis, force majeure
+
+
+EMERGENCY_REASONS = {
+    'mental_health_crisis',
+    'medical_emergency',
+    'force_majeure',
+    'bereavement',
+}
+
+
 class Session(models.Model):
     therapist = models.ForeignKey(
         Therapist,
@@ -51,6 +64,11 @@ class Session(models.Model):
     cancelled_by = models.CharField(
         max_length=20,
         choices=CancelledBy.choices,
+        null=True,
+    )
+    cancellation_type = models.CharField(
+        max_length=20,
+        choices=CancellationType.choices,
         null=True,
     )
     cancellation_reason = models.TextField(null=True)
