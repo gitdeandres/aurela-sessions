@@ -48,16 +48,20 @@ djmakemigrations booking      # crear migraciones
 
 ### Crear datos de prueba
 
+Al levantar el contenedor en desarrollo, el comando `seed` se ejecuta 
+automáticamente y crea terapeutas y pacientes de ejemplo:
+
 ```bash
-docker compose exec web djshell
+docker compose up
 ```
 
-```python
-from app.booking.models import Therapist, Patient
+Si quieres ejecutarlo manualmente:
 
-t = Therapist.objects.create(name="Dra. García", email="garcia@aurela.health", speciality="Ansiedad")
-p = Patient.objects.create(name="Andrés Ravelo", email="andres@email.com")
+```bash
+docker compose exec web djmanage seed
 ```
+
+El comando es idempotente — puedes ejecutarlo múltiples veces sin duplicar datos.
 
 ---
 
