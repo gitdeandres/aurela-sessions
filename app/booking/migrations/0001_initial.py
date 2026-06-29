@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'session',
                 'ordering': ['start_time'],
-                'indexes': [models.Index(fields=['therapist', 'start_time'], name='booking_ses_therapi_e5ba34_idx'), models.Index(fields=['status'], name='booking_ses_status_7750b9_idx')],
+                'indexes': [models.Index(fields=['therapist', 'start_time'], name='session_therapi_ab757d_idx'), models.Index(fields=['status'], name='session_status_dd82f4_idx')],
             },
         ),
     ]
