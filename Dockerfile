@@ -26,3 +26,7 @@ COPY . .
 
 # Install the project into the existing virtualenv
 RUN uv sync --frozen
+
+# Load project aliases when entering the container interactively
+COPY .bash_aliases /root/.bash_aliases
+RUN echo "source /root/.bash_aliases" >> /root/.bashrc
