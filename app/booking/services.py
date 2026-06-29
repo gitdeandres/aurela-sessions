@@ -1,4 +1,5 @@
 from datetime import timedelta
+from typing import Optional
 
 from django.db import transaction
 from django.db.models import DateTimeField, ExpressionWrapper, F
@@ -66,7 +67,7 @@ def book_session(
 def cancel_session(
     session_id: int,
     cancelled_by: CancelledBy,
-    reason: str = '',
+    reason: Optional[str] = None,
 ) -> Session:
     """
     Cancels an existing session if business rules allow it.
