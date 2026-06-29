@@ -21,6 +21,7 @@ class SessionSerializer(serializers.ModelSerializer):
             'duration_minutes',
             'status',
             'cancellation_reason',
+            'cancellation_type',
             'cancelled_by',
             'created_at',
             'updated_at',

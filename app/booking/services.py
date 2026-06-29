@@ -6,7 +6,7 @@ from django.db.models import DateTimeField, ExpressionWrapper, F
 from django.utils import timezone
 
 from app.booking.exceptions import CancellationNotAllowedError, ConflictError
-from app.booking.models import (TERMINAL_STATUSES, CancelledBy, Patient,
+from app.booking.models import (CancellationType, CancelledBy, Patient,
                                 Session, SessionStatus, Therapist)
 
 
@@ -67,7 +67,7 @@ def book_session(
 def cancel_session(
     session_id: int,
     cancelled_by: CancelledBy,
-    reason: Optional[str] = None,
+    cancellation_type: CancellationType = CancellationType.STANDARD,
 ) -> Session:
     """
     Cancels an existing session if business rules allow it.
@@ -76,23 +76,17 @@ def cancel_session(
     Raises Session.DoesNotExist if the session is not found.
     """
     with transaction.atomic():
-        # Lock the session row to prevent concurrent cancellation attempts
         session = Session.objects.select_for_update().get(pk=session_id)
 
-        if not session.is_cancellable(cancelled_by):
-            if session.status in TERMINAL_STATUSES:
-                raise CancellationNotAllowedError(
-                    f"Cannot cancel a session with status '{session.status}'."
-                )
-            if timezone.now() >= session.start_time:
-                raise CancellationNotAllowedError(
-                    "Cannot cancel a session that has already started."
-                )
-            raise CancellationNotAllowedError(
-                "This session requires more advance notice to cancel."
+        try:
+            session.cancel(
+                cancelled_by=cancelled_by,
+                cancellation_type=cancellation_type,
+                reason=reason,
             )
+        except ValueError as e:
+            raise CancellationNotAllowedError(str(e))
 
-        session.cancel(cancelled_by=cancelled_by, reason=reason)
         return session
 
 

@@ -1,5 +1,6 @@
 from .patient import Patient
-from .session import TERMINAL_STATUSES, CancelledBy, Session, SessionStatus
+from .session import (EMERGENCY_REASONS, TERMINAL_STATUSES, CancellationType,
+                      CancelledBy, Session, SessionStatus)
 from .therapist import Therapist
 
 __all__ = [
@@ -8,5 +9,7 @@ __all__ = [
     'Session',
     'SessionStatus',
     'CancelledBy',
-    'TERMINAL_STATUSES'
+    'TERMINAL_STATUSES',
+    'CancellationType',
+    'EMERGENCY_REASONS',
 ]
